@@ -17,7 +17,7 @@ int AND(int a, int B) {
 int OR(int a, int B) {
     // Il valore di ritorno della funzione
     // TODO aggiungere l'espressione matematica per soddisfare la porta OR
-    return a + B;
+    return (a + B) - (a * B);
 }
 
 int main() {
