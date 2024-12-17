@@ -76,76 +76,76 @@ int main2() {
    
     int A, B, C, D, E, F;
 
-printf("Inserisci il valore di A (0 o 1):\n");
-scanf("%d", &A);                                // and
-printf("Inserisci il valore di B (0 o 1):\n");
-scanf("%d", &B);
+ printf("Inserisci il valore di A (0 o 1):\n");
+ scanf("%d", &A);                                // and
+ printf("Inserisci il valore di B (0 o 1):\n");
+ scanf("%d", &B);
 
-printf("Inserisci il valore di C (0 o 1):\n");
-scanf("%d", &C);                               // not
+ printf("Inserisci il valore di C (0 o 1):\n");
+ scanf("%d", &C);                               // not
 
-printf("Inserisci il valore di D (0 o 1):\n");
-scanf("%d", &D);    
+ printf("Inserisci il valore di D (0 o 1):\n");
+ scanf("%d", &D);    
                                                // or
-printf("Inserisci il valore di E (0 o 1):\n");
-scanf("%d", &E);
+ printf("Inserisci il valore di E (0 o 1):\n");
+ scanf("%d", &E);
 
-printf("Inserisci il valore di F (0 o 1):\n");
-scanf("%d", &F);                               //not         
-
-
+ printf("Inserisci il valore di F (0 o 1):\n");
+ scanf("%d", &F);                               //not         
 
 
-int AND(int A, int B){
+
+
+ int AND(int A, int B) {
     return A * B
-}
+ }
 
-int NOT(int C) {
+ int NOT(int C) {
     return 1 - C;
-}
+ }
 
-int OR(int D, int F) {
+ int OR(int D, int F) {
     return (D + E) - (D * E);
-}
+ }
 
-int NOT2(int F) {
+ int NOT2(int F) { 
     return 1 - F;
-}
+ }
 
 
 
 
 
-int OR2(int AND, int AND){
+ int OR2(int AND, int AND){
     return (AND + AND) - (AND * AND);
-}
+ }
 
-int AND2(int OR; int NOT2){
+ int AND2(int OR; int NOT2){
     return OR * NOT2
-}
+ }
 
 
 
-int OR3(int OR2, int NOT){
+ int OR3(int OR2, int NOT){
     return (OR2 + NOT) - (OR2 * NOT);
-}
+ }
 
-int AND3(int NOT, int AND2){
+ int AND3(int NOT, int AND2){
     return NOT * AND2
-}
+ }
 
 
 
 
-int AND4(int OR3, int AND3){
+ int AND4(int OR3, int AND3){
     return OR3 * AND3
-}
+ }
 
 
-int NOT3(int AND4){
+ int NOT3(int AND4){
     return 1 - AND4
-}
+ }
 
-printf("il valore è in uscita dal labirinto è: %d\n", NOT3)
+ printf("il valore è in uscita dal labirinto è: %d\n", NOT3)
 
 }
