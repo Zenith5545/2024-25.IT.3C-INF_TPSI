@@ -63,7 +63,14 @@ int main() {
     printf("\n\n");
 }
 
+//esercizio 3 - calcolo esp. NOT(AND(A, OR(A, B)))
 
+int r = 1 - (A * (A + B - A * B));
+printf("il valore è: %d/n", r)
+
+
+
+//esercizio 4 - labirinto 
 
 int main2() {
    
