@@ -66,11 +66,11 @@ int main() {
 //esercizio 3 - calcolo esp. NOT(AND(A, OR(A, B)))
 
 int r = 1 - (A * (A + B - A * B));
-printf("il valore è: %d/n", r)
+printf("il valore è: %d\n", r)
 
 
 
-//esercizio 4 - labirinto 
+//esercizio 4 - creazione labirinto logico
 
 int main2() {
    
@@ -96,7 +96,7 @@ scanf("%d", &F);                               //not
 
 
 
-int AND(int A; int B){
+int AND(int A, int B){
     return A * B
 }
 
@@ -116,8 +116,9 @@ int NOT2(int F) {
 
 
 
-int OR2(int AND, int AND) {
+int OR2(int AND, int AND){
     return (AND + AND) - (AND * AND);
+}
 
 int AND2(int OR; int NOT2){
     return OR * NOT2
@@ -125,5 +126,26 @@ int AND2(int OR; int NOT2){
 
 
 
+int OR3(int OR2, int NOT){
+    return (OR2 + NOT) - (OR2 * NOT);
+}
+
+int AND3(int NOT, int AND2){
+    return NOT * AND2
+}
+
+
+
+
+int AND4(int OR3, int AND3){
+    return OR3 * AND3
+}
+
+
+int NOT3(int AND4){
+    return 1 - AND4
+}
+
+printf("il valore è in uscita dal labirinto è: %d\n", NOT3)
 
 }
