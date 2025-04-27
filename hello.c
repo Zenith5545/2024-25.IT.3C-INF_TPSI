@@ -76,4 +76,30 @@ int main() {
     printf("\n\n");
 }
 
+//esercizio 3 - calcolo esp. NOT(AND(A, OR(A, B)))
 
+int main2() {
+
+int A, B, ris;
+
+    // Mostra un messaggio sul terminale che l'utente può leggere
+    printf("Inserisci il valore di A (0 o 1):\n");
+    // Attende che l'utente inserisca un valore e prema invio
+    scanf("%d", &A);
+    // Mostra un messaggio sul terminale che l'utente può leggere
+    printf("Hai inserito il valore A: %d\n", A);
+
+    // Mostra un messaggio sul terminale che l'utente può leggere
+    printf("Inserisci il valore di B (0 o 1):\n");
+    // Attende che l'utente inserisca un valore e prema invio
+    scanf("%d", &B);
+    // Mostra un messaggio sul terminale che l'utente può leggere
+    printf("Hai inserito il valore B: %d\n", B);
+
+    if (A == 0 || A == 1 && B == 0 || B == 1) {
+     int ris = NOT(AND(A,OR(A,B)));
+     printf("il valore finale è %d\n", ris);
+   }
+   else {return 0;}
+
+}
