@@ -36,15 +36,19 @@ return (a+b)-((2*a)*b);
         
         // Aprire il file in modalità di lettura
         file = fopen("in.txt", "r");
+
+
         if (file == NULL) {
-            perror("Errore nell'apertura del file 1");
+            perror("Errore nell'apertura del file: file non trovato");
             return 1;
         }
     
         // Leggere 10 interi dal file
         result = fread(num, sizeof(int), 10, file);
+
+
         if (result != 10) {
-            perror("Errore nella lettura dal file 2");
+            perror("Errore nella lettura dal file: file non leggibile");
             fclose(file);
             return 1;
         }
