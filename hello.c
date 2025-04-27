@@ -20,6 +20,13 @@ int OR(int a, int B) {
     return (a + B) - (a * B);
 }
 
+// Funzine per simulare la porta EX-OR
+int EXOR(int a, int b){
+    // Il valore di ritorno della funzione
+    // TODO aggiungere l'espressione matematica per soddisfare la porta AND
+return (a+b)-((2*a)*b);
+}
+
 int main() {
     // Dichiara una variabile
     int A, B;
@@ -58,94 +65,15 @@ int main() {
         printf("I valori di A e B vengono trasformati da una porta OR\n");
         int orAB = OR(A, B);
         printf("Il valore di uscita della porta OR è: %d\n", orAB);
+
+      
+        // Esempio di porta EXOR
+        printf("I valori di A e B vengono trasformati da una porta EXOR\n");
+        int exorAB = EXOR(A, B);
+        printf("Il valore di uscita della porta EXOR è: %d\n", exorAB);
     }
 
     printf("\n\n");
 }
 
-//esercizio 3 - calcolo esp. NOT(AND(A, OR(A, B)))
 
-int r = 1 - (A * (A + B - A * B));
-printf("il valore è: %d\n", r)
-
-
-
-//esercizio 4 - creazione labirinto logico
-
-int main2() {
-   
-    int A, B, C, D, E, F;
-
- printf("Inserisci il valore di A (0 o 1):\n");
- scanf("%d", &A);                                // and
- printf("Inserisci il valore di B (0 o 1):\n");
- scanf("%d", &B);
-
- printf("Inserisci il valore di C (0 o 1):\n");
- scanf("%d", &C);                               // not
-
- printf("Inserisci il valore di D (0 o 1):\n");
- scanf("%d", &D);    
-                                               // or
- printf("Inserisci il valore di E (0 o 1):\n");
- scanf("%d", &E);
-
- printf("Inserisci il valore di F (0 o 1):\n");
- scanf("%d", &F);                               //not         
-
-
-
-
- int AND(int A, int B) {
-    return A * B
- }
-
- int NOT(int C) {
-    return 1 - C;
- }
-
- int OR(int D, int F) {
-    return (D + E) - (D * E);
- }
-
- int NOT2(int F) { 
-    return 1 - F;
- }
-
-
-
-
-
- int OR2(int AND, int AND){
-    return (AND + AND) - (AND * AND);
- }
-
- int AND2(int OR; int NOT2){
-    return OR * NOT2
- }
-
-
-
- int OR3(int OR2, int NOT){
-    return (OR2 + NOT) - (OR2 * NOT);
- }
-
- int AND3(int NOT, int AND2){
-    return NOT * AND2
- }
-
-
-
-
- int AND4(int OR3, int AND3){
-    return OR3 * AND3
- }
-
-
- int NOT3(int AND4){
-    return 1 - AND4
- }
-
- printf("il valore è in uscita dal labirinto è: %d\n", NOT3)
-
-}
