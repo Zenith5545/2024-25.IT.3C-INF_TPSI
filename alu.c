@@ -55,7 +55,7 @@ if(u==5){goto end;}
 
 
 
-trm: // zona dedicata al terminale
+trm: // zona dedicata all'inserimento da terminale
 if(s1t = 1){
 
     rt2:
@@ -80,16 +80,70 @@ if(s1t = 1){
 
             dec: // decimale
             if(s2d == 1){
+            
+                int tipoval,a,b,numbin1,numbin2,pes1,pes2,a2,b2;
+           
+                    printf("inserire i 2 valori\n");
+                    
+                    scanf("%d\n",&a2); // 1 valore
 
+                    a=0, pes1=1;
+                    while(a2 != 0){    
+                        numbin1 = a2 % 2;
+                        a += numbin1*pes1;
+                        pes1 *= 10;
+                        a2 /= 2;
+                    }
+                    
+                    scanf("%d",&b2); // 2 valore
 
+                    b=0, pes2=1;
+
+                    while(b2 > 0){    
+                        numbin2 = b2 % 2;
+                        b += numbin2*pes2;
+                        pes2 *= 10;
+                        b2 /= 2;
+                    } 
+                
+
+                    // abbiamo a e b -> input convertiti in binario
 
             }
 
             bin: // binario
             if(s2b == 1){
 
+                int k, a, b, i1, i2, u;
 
-    
+                i1 = 1;
+                i2 = 1;
+                u = 0;
+
+                //Richiesta all'utente di inserire il primo numero
+                while(i1==1){
+                printf("Inserisci il primo numero che sia in numeri binari\n");
+                scanf("%d", &a);
+
+                    if(a == 1 || a == 0){i1--;}
+
+                    else(printf("valore sbagliato ritenta\n") + u++);
+                    if(u==5) goto end;
+                } // valore 1
+
+
+                //Richiesta all'utente di inserire il secondo numero
+                while(i2==1){
+                printf("Inserisci il secondo numero che sia in numeri binari\n");
+                scanf("%d", &b);
+
+                    if(b == 1 || b == 0){i2--;}
+
+                    else(printf("valore sbagliato ritenta\n") + u++);
+                    if(u==5) goto end;
+                } // valore 2
+
+                  // a e b -> 2 input binari
             }
 
 }
@@ -115,7 +169,7 @@ if(s1f == 1){
 
 
 
-end:
+end: // fine programma
 
 
 
