@@ -146,31 +146,30 @@ return u;
 
 
 
-int main()
-{
+int main(){
 
-int s1, s1t, s1f,     s2, s2b, s2d,     u = 0;
+    int s1, s1t, s1f,     s2, s2b, s2d,     u = 0;
 
-rt1: // scelta tra terminale e file
-printf("inserimento valori tramite: 1 manualmente da terminale, 2 tramite file.\n");
-scanf("%d",&s1);
+    rt1: // scelta tra terminale e file
+    printf("inserimento valori tramite: 1 manualmente da terminale, 2 tramite file.\n");
+    scanf("%d",&s1);
 
-if(s1 == 1){goto trm;
-s1t=1;}
+    if(s1 == 1){goto trm;
+    s1t=1;}
 
-else if(s1 == 2){goto fli;
-s1f=1;}
+    else if(s1 == 2){goto fli;
+    s1f=1;}
 
-else{printf("valore sbagliato ritenta\n") + u++;
-goto rt1;};
-if(u==5){goto end;}
-
+    else{printf("valore sbagliato ritenta\n") + u++;
+    goto rt1;};
+    if(u==5){goto end;}
 
 
 
 
-trm: // zona dedicata all'inserimento da terminale
-if(s1t = 1){
+
+    trm: // zona dedicata all'inserimento da terminale
+    if(s1t = 1){
 
     rt2:
     printf("tipologia valori: 1 = decimale, 2 binario.\n");
@@ -195,7 +194,8 @@ if(s1t = 1){
             dec: // decimale
             if(s2d == 1){
             
-                int tipoval,a,b,numbin1,numbin2,pes1,pes2,a2,b2;
+
+                     int tipoval,a,b,numbin1,numbin2,pes1,pes2,a2,b2;
            
                     printf("inserire i 2 valori\n");
                     
@@ -218,61 +218,36 @@ if(s1t = 1){
                         b += numbin2*pes2;
                         pes2 *= 10;
                         b2 /= 2;
-                    } 
-                
-
-                    // abbiamo a e b -> input convertiti in binario
+                    }  // abbiamo a e b -> input convertiti in binario   
+                  
 
             }
 
             bin: // binario
             if(s2b == 1){
 
-                int k, a, b, i1, i2, u;
+                int aa, u = 0;
+    
+            int a = CHECK(aa, u);
+            if(u==5) goto end;
 
-                i1 = 1;
-                i2 = 1;
-                u = 0;
-
-                //Richiesta all'utente di inserire il primo numero
-                while(i1==1){
-                printf("Inserisci il primo numero che sia in numeri binari\n");
-                scanf("%d", &a);
-
-                    if(a == 1 || a == 0){i1--;}
-
-                    else(printf("valore sbagliato ritenta\n") + u++);
-                    if(u==5) goto end;
-                } // valore 1
-
-
-                //Richiesta all'utente di inserire il secondo numero
-                while(i2==1){
-                printf("Inserisci il secondo numero che sia in numeri binari\n");
-                scanf("%d", &b);
-
-                    if(b == 1 || b == 0){i2--;}
-
-                    else(printf("valore sbagliato ritenta\n") + u++);
-                    if(u==5) goto end;
-                } // valore 2
+                 int bb, u = 0;
+    
+            int b = CHECK(bb, u);
+            if(u==5) goto end;
 
                   // a e b -> 2 input binari
             }
 
-}
+    }
 
 
 
-fli: // zona dedicata a inserimento file
-if(s1f == 1){
+    fli: // zona dedicata a inserimento file
+    if(s1f == 1){
 
 
-}
-
-
-
-
+    }
 
 
 
@@ -283,8 +258,14 @@ if(s1f == 1){
 
 
 
-end: // fine programma
 
 
+
+
+    end: // fine programma
+
+    printf("fine programma\n");
+
+    return 0;
 
 }
