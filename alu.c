@@ -1,33 +1,147 @@
 #include <stdio.h>
 #include <math.h>
 
-
-
-
-// Funzione per simulare la porta NOT
 int NOT(int a) {
-    // Il valore di ritorno della funzione
-    return 1 - a;
+       return 1 - a;
 }
-// Funzione per simulare la porta AND
+
 int AND(int a, int B) {
- 
-    
     return a * B;
 }  
-// Funzione per simulare la porta OR
+
 int OR(int a, int B) {
  
     return (a + B) - (a * B);
 }
-// Funzine per simulare la porta EX-OR
-int EXOR(int a, int b){
 
+int EXOR(int a, int b){
 return (a+b)-((2*a)*b);
 }
 
+int NOR (int a, int b){
+return NOT(OR(a, b));
+}
+
+int NAND (int a, int b){
+    return NOT(AND(a, b));
+}
+
+int OR3(int a, int b, int c){
+    return OR(OR(a, b), c);
+}
+
+int AND3(int a, int b, int c){
+    return AND(AND(a, b), c);
+}
+
+int NOR3(int a, int b, int c){
+    return NOT(OR(OR(a, b), c));
+}
+
+int NAND3(int a, int b, int c){
+    return NOT(AND(AND(a, b), c));
+}
+
+int AND1(int a){
+return a;
+}
+
+int AND4(int a, int b, int c, int d){
+return AND(AND(AND(a, b), c), d); 
+}
+
+int NAND4(int a, int b, int c, int d){
+    return NOT(AND(AND(AND(a, b), c), d)); 
+}
+
+int NOR4(int a, int b, int c, int d){
+    return NOT(OR(OR(OR(a, b), c), d));
+}
+
+int AND5(int a, int b, int c, int d, int e){
+  return AND(AND(AND(AND(a, b), c), d), e);
+}
+
+int NAND5(int a, int b, int c, int d, int e){
+  return NOT(AND(AND(AND(AND(a, b), c), d), e));
+}
 
 
+//                input                                                         selettori                   carry in            output                    ??        carry out          ???
+int ALU(int a0,int b0,int a1,int b1,int a2,int b2,int a3,int b3,      int z0,int z1,int z2,int z3,int m1,    int Cn,   int f0,int f1,int f2,int f3,  int A, int B,   int Cn4,     int PX,int GY){
+ 
+ // 1 sezione
+ 
+ 
+    
+
+  
+  int p0 = NOR3(AND(NOT(b0), z1),AND(z0, b0), AND1(a0));
+  int p1 = NOR(AND3(a0, b0, z3), AND3(a0, z2, NOT(b0)));
+  
+  int p2 = NOR3(AND(NOT(b1), z1),AND(z0, b1), AND1(a1));
+  int p3 = NOR(AND3(a1, b1, z3), AND3(a1, z2, NOT(b1)));
+  
+  int p4 = NOR3(AND(NOT(b2), z1),AND(z0, b2), AND1(a2));
+  int p5 = NOR(AND3(a2, b2, z3), AND3(a2, z2, NOT(b2)));
+  
+  int p6 = NOR3(AND(NOT(b3), z1),AND(z0, b3), AND1(a3));
+  int p7 = NOR(AND3(a3, b3, z3), AND3(a3, z2, NOT(b3)));
+  
+  
+ // 2 sezione
+  
+
+
+ int M = NOT(m1);
+  
+ f0 = EXOR(EXOR(p0, p1), NAND(Cn, M));                                  // output 1
+ 
+     int f1a = NOR(AND3(p2, M, Cn), AND(p1, M));                        
+ f1 = EXOR(EXOR(p2, p3), f1a);                                          // output 2
+ 
+     int f2a = NOR3(AND4(Cn, p2, p4, M), AND3(p4, p1, M), AND(M, p3));      
+ f2 = EXOR(EXOR(p4, p5), f2a);                                          // output 3
+ 
+     int f3d = AND5(Cn, p1, p3, p5, M);
+     int f3c = AND4(p3, p5, p1, M);
+     int f3b = AND3(p2, M, p5);
+     int f3a = AND(p4, M);
+ f3 = EXOR(EXOR(p6, p7), NOR4(f3d, f3c, f3b, f3a));                     // output 4
+ 
+ A = AND(f0, f1);                                                       
+                                                                         // output A = B
+ B = AND(f3, f2);
+ 
+ // 3 sezione
+ 
+
+ PX = NAND4(p7, p5, p3, p1);                                              // output P(negato) or X
+ 
+ 
+ GY = NOR4(AND1(p6), AND(p7, p4), AND3(p7, p5, p2), AND4(p7, p5, p3, Cn));// output G(negato) or Y 
+ 
+
+ Cn4 = OR(NOT(GY), NOT(NAND5(p7, p5, p3, p1, Cn)));                       // output Cn+4 or Cn+4(negato)
+ 
+}
+
+int CHECK(int a, int u)
+{
+           
+int i1 = 1;
+
+//Richiesta all'utente di inserire il primo numero
+while(i1==1){
+     printf("inserisci il valore, deve essere 1 o 0\n");
+scanf("%d", &a);
+if(a == 1 || a == 0){i1--;}
+else( printf("valore sbagliato\n") + u++);
+if(u==5) break;
+}
+return a;
+return u;
+}
 
 
 
