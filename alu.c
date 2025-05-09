@@ -66,7 +66,6 @@ int NAND5(int a, int b, int c, int d, int e){
   return NOT(AND(AND(AND(AND(a, b), c), d), e));
 }
 
-
 //                input                                                         selettori                   carry in            output                    ??        carry out          ???
 int ALU(int a0,int b0,int a1,int b1,int a2,int b2,int a3,int b3,      int z0,int z1,int z2,int z3,int m1,    int Cn,   int f0,int f1,int f2,int f3,  int A, int B,   int Cn4,     int PX,int GY){
  
@@ -250,22 +249,13 @@ int main(){
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     end: // fine programma
 
     printf("fine programma\n");
 
+
+
     return 0;
 
 }
+
