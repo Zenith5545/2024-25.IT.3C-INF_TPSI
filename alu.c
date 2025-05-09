@@ -225,12 +225,12 @@ int main(){
             bin: // binario
             if(s2b == 1){
 
-                int aa, u = 0;
+                int aa;
     
             int a = CHECK(aa, u);
             if(u==5) goto end;
 
-                 int bb, u = 0;
+                 int bb;
     
             int b = CHECK(bb, u);
             if(u==5) goto end;
