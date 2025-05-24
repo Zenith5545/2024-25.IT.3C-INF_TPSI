@@ -193,7 +193,7 @@ int main(){
             dec: // decimale
             if(s2d == 1){
             
-
+                
                      int tipoval,a,b,numbin1,numbin2,pes1,pes2,a2,b2;
            
                     printf("inserire i 2 valori\n");
@@ -220,6 +220,7 @@ int main(){
                     }  // abbiamo a e b -> input convertiti in binario   
                   
 
+
             }
 
             bin: // binario
@@ -244,7 +245,9 @@ int main(){
 
     fli: // zona dedicata a inserimento file
     if(s1f == 1){
+   
 
+  
 
     }
 
