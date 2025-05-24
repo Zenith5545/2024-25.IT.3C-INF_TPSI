@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 int NOT(int a) {
        return 1 - a;
@@ -226,15 +227,179 @@ int main(){
             bin: // binario
             if(s2b == 1){
 
-                int aa;
-    
-            int a = CHECK(aa, u);
-            if(u==5) goto end;
+     
+            
 
-                 int bb;
+
+
+
+    char numeroStrA[32 + 1];  // +1 per il terminatore di stringa '\0'
     
-            int b = CHECK(bb, u);
-            if(u==5) goto end;
+    int cifre[32], r0 = 0, a0, a1, a2, a3;
+   
+    int rip1[32], r1 = 0, a01, a11, a21, a31;
+    int rip2[32], r2 = 0, a02, a12, a22, a32;
+    int rip3[32], r3 = 0, a03, a13, a23, a33;
+    int rip4[32], r4 = 0, a04, a14, a24, a34;
+    int rip5[32], r5 = 0, a05, a15, a25, a35;
+    int rip6[32], r6 = 0, a06, a16, a26, a36;
+    int rip7[32], r7 = 0, a07, a17, a27, a37;
+ 
+    
+    
+    printf("Inserisci un numero (max 32 bit): ");
+    scanf("%s", numeroStrA);
+
+    // Controlliamo che il numero non superi il limite
+    if (strlen(numeroStrA) > 32) {
+        printf("Errore: il numero inserito supera il limite di 32 bit, overflow.\n");
+        return 1;
+    }
+
+    // Convertiamo la stringa in array di cifre
+    while (numeroStrA[r0] != '\0') {
+        cifre[r0] = numeroStrA[r0] - '0';  // Convertiamo il carattere in cifra intera
+        r0++;
+    }
+   
+    printf("il numero di bit è %d\n", r0);
+     
+     
+    // Verifichiamo che ci siano almeno quattro cifre
+    if (r0 >= 4) { // input
+        a0 = cifre[0];
+        a1 = cifre[1];
+        a2 = cifre[2];
+        a3 = cifre[3];
+
+        printf("Le prime quattro cifre del numero sono: %d, %d, %d, %d\n", a0, a1, a2, a3);
+
+        
+        if (r0 > 4) { // 1 riporto
+            for (int j = 4; j < r0; j++) {
+                rip1[r1] = cifre[j];
+                r1++;
+            }
+
+            if(r1 > 4){
+                a01 = rip1[0];
+                a11 = rip1[1];
+                a21 = rip1[2];
+                a31 = rip1[3];
+                
+        printf("Le cifre del primo riporto sono: %d, %d, %d, %d\n", a01, a11, a21, a31);  
+        
+          
+        if (r1 > 4) { // 2 riporto
+            for (int j = 4; j < r1; j++) {
+                rip2[r2] = rip1[j];
+                r2++;        
+            }
+            
+            if(r2 > 4){
+                a02 = rip2[0];
+                a12 = rip2[1];
+                a22 = rip2[2];
+                a32 = rip2[3]; 
+                
+        printf("Le cifre del secondo riporto sono: %d, %d, %d, %d\n", a02, a12, a22, a32);
+        
+        
+        if (r2 > 4) { // 3 riporto
+            for (int j = 4; j < r2; j++) {
+                rip3[r3] = rip2[j];
+                r3++;        
+            }
+            
+            if(r3 > 4){
+                a03 = rip3[0];
+                a13 = rip3[1];
+                a23 = rip3[2];
+                a33 = rip3[3];        
+        
+        printf("Le cifre del terzo riporto sono: %d, %d, %d, %d\n", a03, a13, a23, a33);
+        
+
+
+
+        if (r3 > 4) { // 4 riporto
+            for (int j = 4; j < r3; j++) {
+                rip4[r4] = rip3[j];
+                r4++;        
+            }
+            
+            if(r4 > 4){
+                a04 = rip4[0];
+                a14 = rip4[1];
+                a24 = rip4[2];
+                a34 = rip4[3];        
+        
+        printf("Le cifre del quarto riporto sono: %d, %d, %d, %d\n", a04, a14, a24, a34);
+        
+        
+        
+        if (r4 > 4) { // 5 riporto
+            for (int j = 4; j < r4; j++) {
+                rip5[r5] = rip4[j];
+                r5++;        
+            }
+            
+            if(r5 > 4){
+                a05 = rip5[0];
+                a15 = rip5[1];
+                a25 = rip5[2];
+                a35 = rip5[3];        
+        
+        printf("Le cifre del quinto riporto sono: %d, %d, %d, %d\n", a05, a15, a25, a35);
+        
+        
+        
+        if (r5 > 4) { // 6 riporto
+            for (int j = 4; j < r5; j++) {
+                rip6[r6] = rip5[j];
+                r6++;        
+            }
+            
+            if(r6 > 4){
+                a06 = rip6[0];
+                a16 = rip6[1];
+                a26 = rip6[2];
+                a36 = rip6[3];        
+        
+        printf("Le cifre del sesto riporto sono: %d, %d, %d, %d\n", a06, a16, a26, a36);        
+        
+        
+        
+        if (r6 > 4) { // 6 riporto
+            for (int j = 4; j < r6; j++) {
+                rip7[r7] = rip6[j];
+                r7++;        
+            }
+            
+            if(r7 == 4){
+                a07 = rip7[0];
+                a17 = rip7[1];
+                a27 = rip7[2];
+                a37 = rip7[3];        
+        
+        printf("Le cifre del settimo riporto sono: %d, %d, %d, %d\n", a07, a17, a27, a37);
+        
+        
+            }}
+            }}
+            }}
+            }}
+            }}
+            }}
+            }}
+        
+    
+       
+    
+    else {
+        printf("Il numero inserito non ha almeno quattro cifre.\n");
+    }
+
 
                   // a e b -> 2 input binari
             }
