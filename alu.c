@@ -184,9 +184,9 @@ int main(){
     } 
 
 
-    else{printf("valore sbagliato ritenta\n") + u++;
-    goto rt2;};
-    if(u==5){goto end;} 
+     else{printf("valore sbagliato ritenta\n") + u++;
+     goto rt2;};
+     if(u==5){goto end;} 
 
 
 
@@ -226,11 +226,6 @@ int main(){
 
             bin: // binario
             if(s2b == 1){
-
-     
-            
-
-
 
 
     char numeroStrA[32 + 1];  // +1 per il terminatore di stringa '\0'
@@ -393,7 +388,7 @@ int main(){
             }}
             }}
         
-    
+        }
        
     
     else {
@@ -424,6 +419,6 @@ int main(){
 
 
     return 0;
-
 }
+
 
