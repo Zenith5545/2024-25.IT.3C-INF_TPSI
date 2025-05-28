@@ -432,7 +432,67 @@ int main(){
 
     //zona calcolo e registri
     
-    REG();
+    
+    int QA0,QA1,QA2,QA3,QA4,QA5,QA6,QA7,QA8,QA9,QA10,QA11,QA12,QA13,QA14,QA15,QA16,QA17,QA18,QA19,QA20,QA21,QA22,QA23,QA24,QA25,QA26,QA27,QA28,QA29,QA30,QA31;
+    
+    int QB0,QB1,QB2,QB3,QB4,QB5,QB6,QB7,QB8,QB9,QB10,QB11,QB12,QB13,QB14,QB15,QB16,QB17,QB18,QB19,QB20,QB21,QB22,QB23,QB24,QB25,QB26,QB27,QB28,QB29,QB30,QB31;
+    
+    
+    
+    //registri per a
+    
+    printf("\nSezione di registri per bit di A\n");
+    printf("\nRegistro 1\n");
+    REG(
+         a0, a1, a2, a3, a4, a5, a6, a7,
+         &QA0, &QA1, &QA2, &QA3, &QA4, &QA5, &QA6, &QA7
+    );
+    printf("\nRegistro 2\n");
+    REG(
+         a8, a9, a10, a11, a12, a13, a14, a15,
+         &QA8, &QA9, &QA10, &QA11, &QA12, &QA13, &QA14, &QA15
+    );
+    printf("\nRegistro 3\n");
+    REG(
+         a16, a17, a18, a19, a20, a21, a22, a23,
+         &QA16, &QA17, &QA18, &QA19, &QA20, &QA21, &QA22, &QA23
+    );
+    printf("\nRegistro 4\n");
+    REG(
+         a24, a25, a26, a27, a28, a29, a30, a31,
+         &QA24, &QA25, &QA26, &QA27, &QA28, &QA29, &QA30, &QA31
+    );
+    
+    
+
+    //registri per b
+    
+    printf("\nSezione di registri per bit di B\n");
+    printf("\nRegistro 1\n");
+    REG(
+          b0, b1, b2, b3, b4, b5, b6, b7,
+          &QB0, &QB1, &QB2, &QB3, &QB4, &QB5, &QB6, &QB7
+    );
+    printf("\nRegistro 2\n");
+    REG(
+          b8, b9, b10, b11, b12, b13, b14, b15,
+          &QB8, &QB9, &QB10, &QB11, &QB12, &QB13, &QB14, &QB15
+    );
+    printf("\nRegistro 3\n");
+    REG(
+          b16, b17, b18, b19, b20, b21, b22, b23,
+          &QB16, &QB17, &QB18, &QB19, &QB20, &QB21, &QB22, &QB23
+    );
+    printf("\nRegistro 4\n");
+    REG(
+          b24, b25, b26, b27, b28, b29, b30, b31,
+          &QB24, &QB25, &QB26, &QB27, &QB28, &QB29, &QB30, &QB31
+    );
+
+
+
+
+
 
     printf("\nFine programma.\n");
 
