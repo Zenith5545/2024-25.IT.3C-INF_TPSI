@@ -299,8 +299,8 @@ void DIV(
 
 int main(){
     // sezione input
-    int s1, s1t = 0, s1f = 0; // per le scelte utente
-    int s2, s2b = 0, s2d = 0;
+    int ss1, s1t = 0, s1f = 0; // per le scelte utente
+    int ss2, s2b = 0, s2d = 0;
 
     //input x registri
     char numA[32 + 1];  // +1 per il terminatore di stringa '\0'
@@ -331,12 +331,12 @@ int main(){
     while(1){
         printf("Inserimento valori tramite: 1 = manualmente da terminale, 2 = tramite file.\n");
         printf("Scelta: ");
-        scanf("%d",&s1);
+        scanf("%d",&ss1);
 
-        if(s1 == 1){
+        if(ss1 == 1){
             s1t=1;
             break;
-        } else if(s1 == 2){
+        } else if(ss1 == 2){
             s1f=1;
             printf("Funzione 'tramite file' non implementata. Scegli 'manualmente da terminale'.\n");
             
@@ -351,12 +351,12 @@ int main(){
         while(1){
             printf("Tipologia valori: 1 = decimale, 2 = binario.\n");
             printf("Scelta: ");
-            scanf("%d",&s2);
+            scanf("%d",&ss2);
 
-            if(s2 == 1){
+            if(ss2 == 1){
                 s2d = 1;
                 break;
-            } else if(s2 == 2){
+            } else if(ss2 == 2){
                 s2b = 1;
                 break;
             } else {
