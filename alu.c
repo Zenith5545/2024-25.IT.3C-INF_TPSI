@@ -24,50 +24,56 @@ int NAND5(int a, int b, int c, int d, int e){return NOT(AND(AND(AND(AND(a, b), c
 
 
 // ALU
+// ALU
 void ALU(
     int a0, int b0, int a1, int b1, int a2, int b2, int a3, int b3,
     int z0, int z1, int z2, int z3, int m1, int Cn,
     int* f0, int* f1, int* f2, int* f3, int* A, int* B, int* Cn4
-)  {
+) {
+    
+   // 1 sezione
 
-    // 1 sezione
-    int p0 = NOR3(AND(NOT(b0), z1),AND(z0, b0), AND1(a0));
-    int p1 = NOR(AND3(a0, b0, z3), AND3(a0, z2, NOT(b0)));
-
-    int p2 = NOR3(AND(NOT(b1), z1),AND(z0, b1), AND1(a1));
-    int p3 = NOR(AND3(a1, b1, z3), AND3(a1, z2, NOT(b1)));
-
-    int p4 = NOR3(AND(NOT(b2), z1),AND(z0, b2), AND1(a2));
-    int p5 = NOT(OR(AND3(a2, b2, z3), AND3(a2, z2, NOT(b2))));
-
-    int p6 = NOR3(AND(NOT(b3), z1),AND(z0, b3), AND1(a3));
-    int p7 = NOR(AND3(a3, b3, z3), AND3(a3, z2, NOT(b3)));
-
-
-    // 2 sezione
-    int M = NOT(m1);
-
-    *f0 = EXOR(EXOR(p0, p1), NAND(Cn, M));
-
-    int f1a = NOR(AND3(p2, M, Cn), AND(p1, M));
-    *f1 = EXOR(EXOR(p2, p3), f1a);
-
-    int f2a = NOR3(AND4(Cn, p2, p4, M), AND3(p4, p1, M), AND(M, p3));
-    *f2 = EXOR(EXOR(p4, p5), f2a);
-
-    int f3d = AND5(Cn, p1, p3, p5, M);
-    int f3c = AND4(p3, p5, p1, M);
-    int f3b = AND3(p2, M, p5);
-    int f3a = AND(p4, M);
-    *f3 = EXOR(EXOR(p6, p7), NOR4(f3d, f3c, f3b, f3a));
+     int p0 = NOR3(AND(NOT(b0), z1),AND(z0, b0), AND1(a0));
+     int p1 = NOR(AND3(a0, b0, z3), AND3(a0, z2, NOT(b0)));
+     
+     int p2 = NOR3(AND(NOT(b1), z1),AND(z0, b1), AND1(a1));
+     int p3 = NOR(AND3(a1, b1, z3), AND3(a1, z2, NOT(b1)));
+  
+     int p4 = NOR3(AND(NOT(b2), z1),AND(z0, b2), AND1(a2)); 
+     int p5 = NOT(OR(AND3(a2, b2, z3), AND3(a2, z2, NOT(b2)))); 
+  
+     int p6 = NOR3(AND(NOT(b3), z1),AND(z0, b3), AND1(a3)); 
+     int p7 = NOR(AND3(a3, b3, z3), AND3(a3, z2, NOT(b3))); 
+     
+   // 2 sezione
+     
+      int M = NOT(m1);
+  
+*f0 = EXOR(EXOR(p0, p1), NAND(Cn, M));                                  // output 1
+ 
+     int f1a = NOR(AND3(p2, M, Cn), AND(p1, M));                        // output 2
+*f1 = EXOR(EXOR(p2, p3), f1a);
+ 
+     int f2a = NOR3(AND4(Cn, p2, p4, M), AND3(p4, p1, M), AND(M, p3));      
+*f2 = EXOR(EXOR(p4, p5), f2a);                                          // output 3
+ 
+     int f3d = AND5(Cn, p1, p3, p5, M);
+     int f3c = AND4(p3, p5, p1, M);
+     int f3b = AND3(p2, M, p5);
+     int f3a = AND(p4, M);
+*f3 = EXOR(EXOR(p6, p7), NOR4(f3d, f3c, f3b, f3a));                     // output 4
 
     *A = AND(*f0, *f1);
     *B = AND(*f3, *f2);
 
-    // 3 sezione
-    int GY = NOR4(AND1(p6), AND(p7, p4), AND3(p7, p5, p2), AND4(p7, p5, p3, Cn));
+  // 3 sezione
 
-    *Cn4 = OR(NOT(GY), NOT(NAND5(p7, p5, p3, p1, Cn)));
+
+ int GY = NOR4(AND1(p6), AND(p7, p4), AND3(p7, p5, p2), AND4(p7, p5, p3, Cn));// output G(negato) or Y 
+ 
+ *Cn4 = OR(NOT(GY), NOT(NAND5(p7, p5, p3, p1, Cn)));                       // output Cn+4 or Cn+4(negato)
+
+
 }
 
 
@@ -75,109 +81,89 @@ void REG(
     int f0_in, int f1_in, int f2_in, int f3_in, int f4_in, int f5_in, int f6_in, int f7_in,
     int* Q0, int* Q1, int* Q2, int* Q3, int* Q4, int* Q5, int* Q6, int* Q7
 ){
-    int Q0n, Q1n, Q2n, Q3n, Q4n, Q5n, Q6n, Q7n; // Qn = NOT(Q)
+
     int R;
+    R = 1;
 
-    // Inizializzazione con i valori passati
-    R = 0;
-    *Q0 = AND(f0_in, NOT(R));
-    Q0n = NOT(*Q0);
-
-    *Q1 = AND(f1_in, NOT(R));
-    Q1n = NOT(*Q1);
-
-    *Q2 = AND(f2_in, NOT(R));
-    Q2n = NOT(*Q2);
-
-    *Q3 = AND(f3_in, NOT(R));
-    Q3n = NOT(*Q3);
-
-    *Q4 = AND(f4_in, NOT(R));
-    Q4n = NOT(*Q4);
-
-    *Q5 = AND(f5_in, NOT(R));
-    Q5n = NOT(*Q5);
-
-    *Q6 = AND(f6_in, NOT(R));
-    Q6n = NOT(*Q6);
-
-    *Q7 = AND(f7_in, NOT(R));
-    Q7n = NOT(*Q7);
-
-    printf("Dato memorizzato: Q0 = %d\n", *Q0);
-    printf("Dato memorizzato: Q1 = %d\n", *Q1);
-    printf("Dato memorizzato: Q2 = %d\n", *Q2);
-    printf("Dato memorizzato: Q3 = %d\n", *Q3);
-    printf("Dato memorizzato: Q4 = %d\n", *Q4);
-    printf("Dato memorizzato: Q5 = %d\n", *Q5);
-    printf("Dato memorizzato: Q6 = %d\n", *Q6);
-    printf("Dato memorizzato: Q7 = %d\n", *Q7);
-
+    int scelta;
+    scelta = 0;
+    
     // Loop per operazioni successive
     while (1) {
-        int scelta;
-        printf("\nCosa vuoi fare ora?\n");
-        printf("1 - Reset\n");
-        printf("2 - Sovrascrivi con nuovo SET\n");
-        printf("3 - Termina\n");
-        printf("Scelta: ");
-        scanf("%d", &scelta);
 
-        if (scelta == 1) {
-            // RESET
-            R = 1;
-            *Q0 = AND(0, NOT(R)); Q0n = NOT(*Q0);
-            *Q1 = AND(0, NOT(R)); Q1n = NOT(*Q1);
-            *Q2 = AND(0, NOT(R)); Q2n = NOT(*Q2);
-            *Q3 = AND(0, NOT(R)); Q3n = NOT(*Q3);
-            *Q4 = AND(0, NOT(R)); Q4n = NOT(*Q4);
-            *Q5 = AND(0, NOT(R)); Q5n = NOT(*Q5);
-            *Q6 = AND(0, NOT(R)); Q6n = NOT(*Q6);
-            *Q7 = AND(0, NOT(R)); Q7n = NOT(*Q7);
+    if (scelta == 1){ R = 0;}  // RESET
+          
+          
+        *Q0 = f0_in * R;
 
-            printf("Reset effettuato. Q0 = %d\n", *Q0);
-            printf("Reset effettuato. Q1 = %d\n", *Q1);
-            printf("Reset effettuato. Q2 = %d\n", *Q2);
-            printf("Reset effettuato. Q3 = %d\n", *Q3);
-            printf("Reset effettuato. Q4 = %d\n", *Q4);
-            printf("Reset effettuato. Q5 = %d\n", *Q5);
-            printf("Reset effettuato. Q6 = %d\n", *Q6);
-            printf("Reset effettuato. Q7 = %d\n", *Q7);
+        *Q1 = f1_in * R;
 
-        } else if (scelta == 2) {
+        *Q2 = f2_in * R;
+
+        *Q3 = f3_in * R;
+
+        *Q4 = f4_in * R;
+
+        *Q5 = f5_in * R;
+
+        *Q6 = f6_in * R;
+
+        *Q7 = f7_in * R;
+        
+     printf("Dati memorizzati:\nQ0 = %d,\nQ1 = %d,\nQ2 = %d,\nQ3 = %d,\nQ4 = %d,\nQ5 = %d,\nQ6 = %d,\nQ7 = %d,\n", *Q0,*Q1,*Q2,*Q3,*Q4,*Q5,*Q6,*Q7);
+     
+     
+
+    if (scelta == 1){ printf("Reset effettuato. Tutti i valori del registro sono a valore 0\n");break;}
+
+         else if (scelta == 2) {
             // Nuovo SET
-            int new_f_val;
-            printf("Inserisci il nuovo valore SET (0 o 1) per tutti i registri: ");
-            scanf("%d", &new_f_val);
+            printf("Inserisci il nuovo valore SET per ogni i flip-flop: ");
 
-            R = 0; // Per un SET, R deve essere 0
-            *Q0 = AND(new_f_val, NOT(R)); Q0n = NOT(*Q0);
-            *Q1 = AND(new_f_val, NOT(R)); Q1n = NOT(*Q1);
-            *Q2 = AND(new_f_val, NOT(R)); Q2n = NOT(*Q2);
-            *Q3 = AND(new_f_val, NOT(R)); Q3n = NOT(*Q3);
-            *Q4 = AND(new_f_val, NOT(R)); Q4n = NOT(*Q4);
-            *Q5 = AND(new_f_val, NOT(R)); Q5n = NOT(*Q5);
-            *Q6 = AND(new_f_val, NOT(R)); Q6n = NOT(*Q6);
-            *Q7 = AND(new_f_val, NOT(R)); Q7n = NOT(*Q7);
+           scanf("%d\n", &Q0);
+           scanf("%d\n", &Q1);
+           scanf("%d\n", &Q2); 
+           scanf("%d\n", &Q3); 
+           scanf("%d\n", &Q4);  
+           scanf("%d\n", &Q5);  
+           scanf("%d\n", &Q6);  
+           scanf("%d\n", &Q7);  
 
-            printf("Dato memorizzato: Q0 = %d\n", *Q0);
-            printf("Dato memorizzato: Q1 = %d\n", *Q1);
-            printf("Dato memorizzato: Q2 = %d\n", *Q2);
-            printf("Dato memorizzato: Q3 = %d\n", *Q3);
-            printf("Dato memorizzato: Q4 = %d\n", *Q4);
-            printf("Dato memorizzato: Q5 = %d\n", *Q5);
-            printf("Dato memorizzato: Q6 = %d\n", *Q6);
-            printf("Dato memorizzato: Q7 = %d\n", *Q7);
+        
+
 
         } else if (scelta == 3) {
-            printf("Terminazione del processo.\n");
+            printf("chiusura interazione\n");
             break;
-        } else {
-            printf("Scelta non valida. Riprova.\n");
+        } else if(scelta > 3 || scelta < 0){
+            printf("Scelta non valida.\n");
+
+      
+        printf("\nMenu interazione registri:\n");
+        printf("1 - Reset/Clear\n");
+        printf("2 - Overwrite con nuovo SET\n");
+        printf("3 - Finisci interazione\n");
+        scanf("%d", &scelta);
+
         }
     }
 }
 
+
+// binario -> deimale
+long long DEC(const char *VBinO) {// long long per evitare bug causati dagli int
+    long long dec = 0;
+    int lunghezza = strlen(VBinO);
+    
+    // converte la stringa da destra verso sinistra seguendo la logica del peso
+    for (int i = 0; i < lunghezza; i++) {
+        char bit = VBinO[lunghezza - 1 - i]; // sezione che la legge da destra verso sinistra
+        
+// long long in questo caso rende specifica al pow che è una variabile intera
+            dec += (long long)pow(2, i);  // sezione che applica la legge di commutazione
+        }
+    return dec;
+}
 
 // decimale -> binario
 void invertitore(char* Abin){
@@ -242,7 +228,7 @@ void DIV(
         r0++;
     }
 
-    printf("\nIl numero di bit è %d\n", r0);
+    printf("\nIl numero di bit = %d\n", r0);
 
     // Assegna i valori ai puntatori. Se la stringa è più corta, i valori rimangono 0 (per via dell'inizializzazione)
     *d0 = (r0 > 0) ? cifre[0] : 0;
@@ -298,6 +284,32 @@ void DIV(
 
 
 int main(){
+    
+    int S0, S1, S2, S3, M, Cn; // selettori calcoli alu
+    printf("\n===Simulazione ALU 74181===\n");
+    printf("\ntutti i valori a meno che non dichiarato il contrario funzionano su 1 o 0\n");    
+    printf("inserisci i valori di riferimento per le operazioni seguendo le tavole di verità fornite nei datasheet.\n");
+    
+    printf("\ns0:\n");
+    scanf("%d", &S0);
+    
+    printf("\ns1:\n");
+    scanf("%d", &S1);
+    
+    printf("\ns2:\n");
+    scanf("%d", &S2);
+    
+    printf("\ns3:\n");
+    scanf("%d", &S3); 
+    
+    printf("\nM:\n");
+    scanf("%d", &M);     
+    
+    printf("\nCn:\n");
+    scanf("%d", &Cn); 
+    
+    
+    
     // sezione input
     int ss1, s1t = 0, s1f = 0; // per le scelte utente
     int ss2, s2b = 0, s2d = 0;
@@ -488,13 +500,167 @@ int main(){
           b24, b25, b26, b27, b28, b29, b30, b31,
           &QB24, &QB25, &QB26, &QB27, &QB28, &QB29, &QB30, &QB31
     );
+    
+    
+    
+    //alu
+
+    
+            
+    int f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, A, B; // valori di output
+    int Cn4, Cn41, Cn42, Cn43, Cn44, Cn45, Cn46, Cn47;  // carry
+            
+     
+
+
+    ALU(// 1
+            QA0, QB0, QA1, QB1, QA2, QB2, QA3, QB3,
+            S0, S1, S2, S3, M, Cn,
+            &f0, &f1, &f2, &f3, &A, &B, &Cn4
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f0, f1, f2, f3);
+    printf("\ncheck ugualizanza prima alu: %d=%d\n", A, B);
+
+    ALU(// 2
+            QA4, QB4, QA5, QB5, QA6, QB6, QA7, QB7,
+            S0, S1, S2, S3, M, Cn4,
+            &f4, &f5, &f6, &f7, &A, &B, &Cn41
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f4, f5, f6, f7);
+    printf("\ncheck ugualizanza seconda alu: %d=%d\n", A, B);
+
+    ALU(// 3
+            QA8, QB8, QA9, QB9, QA10, QB10, QA11, QB11,
+            S0, S1, S2, S3, M, Cn41,
+            &f8, &f9, &f10, &f11, &A, &B, &Cn42
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f8, f9, f10, f11);
+    printf("\ncheck ugualizanza terza alu: %d=%d\n", A, B);
+
+    ALU(// 4
+            QA12, QB12, QA13, QB13, QA14, QB14, QA15, QB15,
+            S0, S1, S2, S3, M, Cn42,
+            &f12, &f13, &f14, &f15, &A, &B, &Cn43
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f12, f13, f14, f15);
+    printf("\ncheck ugualizanza quarta alu: %d=%d\n", A, B);
+    
+    ALU(// 5
+            QA16, QB16, QA17, QB17, QA18, QB18, QA19, QB19,
+            S0, S1, S2, S3, M, Cn43,
+            &f16, &f17, &f18, &f19, &A, &B, &Cn44
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f16, f17, f18, f19);
+    printf("\ncheck ugualizanza quinta alu: %d=%d\n", A, B);
+    
+    ALU(// 6
+            QA20, QB20, QA21, QB21, QA22, QB22, QA23, QB23,
+            S0, S1, S2, S3, M, Cn44,
+            &f20, &f21, &f22, &f23, &A, &B, &Cn45
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f20, f21, f22, f23);
+    printf("\ncheck ugualizanza sesta alu: %d=%d\n", A, B);
+    
+    ALU(// 7
+            QA24, QB24, QA25, QB25, QA26, QB26, QA27, QB27,
+            S0, S1, S2, S3, M, Cn45,
+            &f24, &f25, &f26, &f27, &A, &B, &Cn46
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f24, f25, f26, f27);
+    printf("\ncheck ugualizanza settima alu: %d=%d\n", A, B);
+    
+    ALU(// 8
+            QA28, QB28, QA29, QB29, QA30, QB30, QA31, QB31,
+            S0, S1, S2, S3, M, Cn46,
+            &f28, &f29, &f30, &f31, &A, &B, &Cn47
+    );
+    printf("\ncheck valori alu: %d,%d,%d,%d\n", f28, f29, f30, f31);
+    printf("\ncheck ugualizanza ottava alu: %d=%d\n", A, B);
+
+
+    // registri di output delle alu
+    
+    int F0, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14, F15, F16, F17, F18, F19, F20, F21, F22, F23, F24, F25, F26, F27, F28, F29, F30, F31;
+            
+    printf("\nSezione di registri gli output dell'alu\n");
+    printf("\nRegistro 1\n");
+    REG(
+          f0, f1, f2, f3, f4, f5, f6, f7,
+          &F0, &F1, &F2, &F3, &F4, &F5, &F6, &F7
+    );
+    printf("\nRegistro 2\n");
+    REG(
+          f8, f9, f10, f11, f12, f13, f14, f15,
+          &F8, &F9, &F10, &F11, &F12, &F13, &F14, &F15
+    );
+    printf("\nRegistro 3\n");
+    REG(
+          f16, f17, f18, f19, f20, f21, f22, f23,
+          &F16, &F17, &F18, &F19, &F20, &F21, &F22, &F23
+    );
+    printf("\nRegistro 4\n");
+    REG(
+          f24, f25, f26, f27, f28, f29, f30, f31,
+          &F24, &F25, &F26, &F27, &F28, &F29, &F30, &F31
+    );
+
+
+    char VBinO[32];
+    
+    if(F0==0){VBinO[0]= '0';} else {VBinO[0]= '1';}
+    if(F1==0){VBinO[1]= '0';} else {VBinO[1]= '1';}
+    if(F2==0){VBinO[2]= '0';} else {VBinO[2]= '1';}
+    if(F3==0){VBinO[3]= '0';} else {VBinO[3]= '1';}
+    if(F4==0){VBinO[4]= '0';} else {VBinO[4]= '1';}
+    if(F5==0){VBinO[5]= '0';} else {VBinO[5]= '1';}
+    if(F6==0){VBinO[6]= '0';} else {VBinO[6]= '1';}
+    if(F7==0){VBinO[7]= '0';} else {VBinO[7]= '1';}
+    if(F8==0){VBinO[8]= '0';} else {VBinO[8]= '1';}
+    if(F9==0){VBinO[9]= '0';} else {VBinO[9]= '1';}
+    
+    if(F10==0){VBinO[10]= '0';} else {VBinO[10]= '1';}
+    if(F11==0){VBinO[11]= '0';} else {VBinO[11]= '1';}
+    if(F12==0){VBinO[12]= '0';} else {VBinO[12]= '1';}
+    if(F13==0){VBinO[13]= '0';} else {VBinO[13]= '1';}
+    if(F14==0){VBinO[14]= '0';} else {VBinO[14]= '1';}
+    if(F15==0){VBinO[15]= '0';} else {VBinO[15]= '1';}
+    if(F16==0){VBinO[16]= '0';} else {VBinO[16]= '1';}
+    if(F17==0){VBinO[17]= '0';} else {VBinO[17]= '1';}
+    if(F18==0){VBinO[18]= '0';} else {VBinO[18]= '1';}
+    if(F19==0){VBinO[19]= '0';} else {VBinO[19]= '1';}
+    
+    if(F20==0){VBinO[20]= '0';} else {VBinO[20]= '1';}
+    if(F21==0){VBinO[21]= '0';} else {VBinO[21]= '1';}
+    if(F22==0){VBinO[22]= '0';} else {VBinO[22]= '1';}
+    if(F23==0){VBinO[23]= '0';} else {VBinO[23]= '1';}
+    if(F24==0){VBinO[24]= '0';} else {VBinO[24]= '1';}
+    if(F25==0){VBinO[25]= '0';} else {VBinO[25]= '1';}
+    if(F26==0){VBinO[26]= '0';} else {VBinO[26]= '1';}
+    if(F27==0){VBinO[27]= '0';} else {VBinO[27]= '1';}
+    if(F28==0){VBinO[28]= '0';} else {VBinO[28]= '1';}
+    if(F29==0){VBinO[29]= '0';} else {VBinO[29]= '1';}
+    
+    if(F30==0){VBinO[30]= '0';} else {VBinO[30]= '1';}
+    if(F31==0){VBinO[31]= '0';} else {VBinO[31]= '1';}
+    
+    VBinO[32] = '\0'; // chiude la stringa
+    
+    
+        
+    long long VDecO = DEC(VBinO);
+    printf("prodotto delle ALU in binario = %s, in decimale = %lld\n", VBinO, VDecO);
 
 
 
 
 
 
-    printf("\nFine programma.\n");
 
+
+
+
+
+
+    
     return 0;
 }
